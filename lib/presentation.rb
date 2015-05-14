@@ -11,6 +11,7 @@ require "open4"
 require "presentation/configurable"
 require "presentation/element"
 require "presentation/external"
+require "presentation/process"
 require "presentation/thread"
 
 # Classes
@@ -18,6 +19,7 @@ require "presentation/context"
 require "presentation/environment"
 require "presentation/log"
 require "presentation/profile"
+require "presentation/screenshot"
 require "presentation/settings"
 
 module Presentation

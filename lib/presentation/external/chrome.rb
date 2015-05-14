@@ -24,16 +24,7 @@ module Presentation
 
       def open(url)
         invoke = invocation(url)
-        p invoke
-        pid, stdin, stdout, stderr = Open4::popen4(invoke)
-        unless pid.nil?
-          @process = {
-            :pid => pid,
-            :stdin => stdin,
-            :stdout => stdout,
-            :stderr => stderr
-          }
-        end
+        @process = ::Presentation::Process.new(invoke)
       end
 
       private

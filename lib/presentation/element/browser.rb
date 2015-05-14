@@ -4,6 +4,16 @@ module Presentation
 
     class Browser
 
+      include HasID
+      
+      def initialize(url)
+        @url = url
+      end
+
+      def open
+        Browser.browser.open(@url)
+      end
+
       class << self
 
         def open(url)
@@ -16,14 +26,6 @@ module Presentation
           @browser ||= External::Chrome.new
         end
 
-      end
-
-      def initialize(url)
-        @url = url
-      end
-
-      def open
-        Browser.browser.open(@url)
       end
 
     end

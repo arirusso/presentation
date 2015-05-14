@@ -7,7 +7,7 @@ module Presentation
     end
 
     def video(file)
-      @stage = Element::Video.play(file)
+      stage = Element::Video.play(file)
     end
 
     def audio(file)
@@ -17,11 +17,18 @@ module Presentation
     end
 
     def browser(url)
-      @stage = Element::Browser.open(url)
+      stage = Element::Browser.open(url)
     end
 
     def join
-      @stage.join
+      stage.join
+    end
+
+    private
+
+    def stage=(element)
+      @screenshots << Screenshot.capture(element)
+      @stage = element
     end
 
   end

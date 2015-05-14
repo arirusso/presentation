@@ -5,6 +5,7 @@ module Presentation
     class Text
 
       include Configurable
+      include HasID
 
       attr_reader :text, :created_at
 
@@ -15,12 +16,12 @@ module Presentation
         @created_at = Time.now
       end
 
-      def id
+      def signature
         @id ||= Digest::SHA256.hexdigest(@text + @created_at.to_s)
       end
 
       def temp_path
-        "#{settings.temp_dir}/#{id}.html"
+        "#{settings.temp_dir}/#{signature}.html"
       end
 
       def write_temp_file

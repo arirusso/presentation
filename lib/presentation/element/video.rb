@@ -4,6 +4,20 @@ module Presentation
 
     class Video
 
+      include HasID
+
+      def initialize(file)
+        @file = file
+      end
+
+      def play
+        Video.player.play(@file)
+      end
+
+      def join
+        Video.player.join
+      end
+
       class << self
 
         def play(file)
@@ -16,18 +30,6 @@ module Presentation
           @player ||= External::MPlayer.new
         end
 
-      end
-
-      def initialize(file)
-        @file = file
-      end
-
-      def play
-        Video.player.play(@file)
-      end
-
-      def join
-        Video.player.join
       end
 
     end
