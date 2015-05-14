@@ -4,6 +4,12 @@ module Presentation
 
     include Configurable
 
+    def self.write(screenshots, options = {})
+      pdf = new(screenshots, options)
+      pdf.write
+      pdf
+    end
+
     def initialize(screenshots, options = {})
       @title = options[:title]
       @screenshots = screenshots

@@ -17,6 +17,7 @@ module Presentation
     def capture
       invoke = invocation
       @process = ::Presentation::Process.new(invoke)
+      self
     end
 
     def path
@@ -42,6 +43,7 @@ module Presentation
       def capture(element)
         screenshot = new(element)
         screenshot.capture
+        screenshot
       end
 
       def next_id
