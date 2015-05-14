@@ -8,23 +8,26 @@ module Presentation
         base.send(:extend, ClassMethods)
       end
 
-      def settings
-        self.class.settings
+      def environment
+        self.class.environment
       end
 
       def profile
-        self.class.profile
+        environment.profile
+      end
+
+      def settings
+        environment.settings
       end
 
       module ClassMethods
 
         def self.extended(base)
-          base.class.send(:attr_reader, :profile, :settings)
+          base.class.send(:attr_reader, :environment)
         end
 
-        def configure(profile, settings)
-          @profile = profile
-          @settings = settings
+        def configure(environment)
+          @environment = environment
         end
 
       end

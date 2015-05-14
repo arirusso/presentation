@@ -10,7 +10,7 @@ module Presentation
       attr_writer :data_dir, :path
 
       DEFAULT = {
-        :data_dir => "/tmp/presentation_chrome",
+        :data_dir => "/tmp/presentation/chrome",
         :path => "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
       }.freeze
 

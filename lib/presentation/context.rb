@@ -3,8 +3,7 @@ module Presentation
   class Context
 
     def initialize
-      @profile = Profile.new
-      @settings = Settings.new(@profile)
+      @environment = Environment.new
       initialize_externals
     end
 
@@ -29,7 +28,7 @@ module Presentation
     private
 
     def initialize_externals
-      External.modules.each { |mod| mod.configure(@profile, @settings) }
+      External.modules.each { |mod| mod.configure(@environment) }
     end
 
   end

@@ -12,6 +12,7 @@ require "presentation/thread"
 
 # Classes
 require "presentation/context"
+require "presentation/environment"
 require "presentation/log"
 require "presentation/profile"
 require "presentation/settings"
