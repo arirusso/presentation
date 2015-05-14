@@ -19,10 +19,22 @@ module Presentation
       @process = ::Presentation::Process.new(invoke)
     end
 
+    def path
+      "#{settings.temp_dir}/#{filename}"
+    end
+
+    def timestamp
+      @timestamp ||= Time.now.to_i
+    end
+
+    def filename
+      "#{id}_#{@element.id}_#{timestamp}.png"
+    end
+
     private
 
     def invocation
-      "/usr/sbin/screencapture #{id}_#{@element.id}_#{Time.now.to_i}.png -x"
+      "/usr/sbin/screencapture #{path} -x"
     end
 
     class << self
@@ -40,5 +52,7 @@ module Presentation
     end
 
   end
+
+  ::Presentation::Configurable.add(Screenshot)
 
 end

@@ -9,15 +9,27 @@ class Presentation::Element::TextTest < Minitest::Test
       @environment = Presentation::Environment.new
     end
 
-    context "#id" do
+    context "#display" do
+
+      setup do
+        @text = Presentation::Element::Text.new("hello")
+      end
+
+      should "display text" do
+        #@text.display
+      end
+
+    end
+
+    context "#signature" do
 
       setup do
         @text = Presentation::Element::Text.new("hello")
       end
 
       should "have correct id" do
-        @id = Digest::SHA256.hexdigest(@text.text + @text.created_at.to_s)
-        assert_equal @id, @text.id
+        @sig = Digest::SHA256.hexdigest(@text.text + @text.created_at.to_s)
+        assert_equal @sig, @text.signature
       end
 
     end
@@ -30,8 +42,8 @@ class Presentation::Element::TextTest < Minitest::Test
       end
 
       should "generate html" do
-        p @html
         refute_nil @html
+        assert @html.match(/hello/)
       end
 
     end
@@ -43,7 +55,7 @@ class Presentation::Element::TextTest < Minitest::Test
       end
 
       should "have correct temp path" do
-        assert @text.temp_path.match(/\/#{@text.id}\.html\z/)
+        assert @text.temp_path.match(/\/#{@text.signature}\.html\z/)
       end
 
     end

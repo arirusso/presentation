@@ -9,4 +9,5 @@ end
 
 gem "cocoa", "~> 0.1", ">= 0.1.6"
 gem "mplayer-ruby", "~> 0.2", ">= 0.2.0"
-gem "open4"
+gem "open4", "~> 1.3", ">= 1.3.4"
+gem "prawn", "~> 2.0", ">= 2.0.1"
