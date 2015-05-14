@@ -7,6 +7,7 @@ require "mplayer-ruby"
 # Modules
 require "presentation/element"
 require "presentation/external"
+require "presentation/thread"
 
 # Classes
 require "presentation/context"

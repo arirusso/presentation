@@ -13,7 +13,7 @@ module Presentation
         end
 
         def player
-          @player ||= External::Mplayer.new
+          @player ||= External::MPlayer.new
         end
 
       end
@@ -23,6 +23,11 @@ module Presentation
       end
 
       def play
+        Video.player.play(@file)
+      end
+
+      def join
+        Video.player.join
       end
 
     end

@@ -11,7 +11,10 @@ module Presentation
       # @option options [String] :flags MPlayer command-line flags to use on startup
       def initialize(options = {})
         @invoker = Invoker.new(options)
-        @state = State.new
+        @state = {
+          :pause => false,
+          :play => false
+        }
         @threads = []
       end
 
@@ -19,16 +22,20 @@ module Presentation
       # @param [String] file
       # @return [Boolean]
       def play(file)
-        @player ||= @invoker.ensure_invoked(file, @state)
+        @player ||= @invoker.ensure_invoked(self, file)
         if @player.nil?
           false
         else
-          @threads << Thread.new do
+          @threads << ::Presentation::Thread.new do
             @player.load_file(file)
             handle_start
           end
           true
         end
+      end
+
+      def join
+        @loop.join
       end
 
       # Is MPlayer active?
@@ -40,19 +47,23 @@ module Presentation
       # Toggles pause
       # @return [Boolean]
       def pause
-        @state.toggle_pause
+        @state[:pause] = !@state[:pause]
         @player.pause
-        @state.pause?
+        @state[:pause]
+      end
+
+      def join
+        playback_loop.join
       end
 
       # Handle events while the player is running
       # @return [Boolean]
       def playback_loop
+        @loop ||= ::Presentation::Thread.new
         loop do
           #handle_eof if handle_eof?
           sleep(0.05)
         end
-        true
       end
 
       # Shortcut to send a message to the MPlayer
@@ -85,15 +96,15 @@ module Presentation
 
       private
 
+      def handle_start
+        @state[:pause] = false
+        @state[:play] = true
+        playback_loop
+      end
+
       # Get player output from stdout
       def get_player_output
         @player.stdout.gets.inspect.strip.gsub(/(\\n|[\\"])/, '').strip
-      end
-
-      # Handle the beginning of playback for a single media file
-      def handle_start
-        loop until get_player_output.size > 1
-        @state.handle_start
       end
 
       # Invoke MPlayer
@@ -114,15 +125,13 @@ module Presentation
           @thread.kill unless @thread.nil?
         end
 
-        # Ensure that the MPlayer process is invoked
-        # @param [String] file The media file to invoke MPlayer with
-        # @param [MMplayer::Player::State] state
         # @return [MPlayer::Slave]
-        def ensure_invoked(file, state)
+        def ensure_invoked(wrapper, file)
           if @player.nil? && @thread.nil?
-            @thread = ::MMPlayer::Thread.new(:timeout => false) do
-              @player = MPlayer::Slave.new(file, :options => @flags)
-              state.handle_start
+            @thread = ::Presentation::Thread.new do
+              @player = ::MPlayer::Slave.new(file, :options => @flags)
+              p file
+              wrapper.send(:handle_start)
             end
           end
           @player
