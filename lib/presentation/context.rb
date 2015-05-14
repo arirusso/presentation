@@ -5,6 +5,7 @@ module Presentation
     def initialize
       @profile = Profile.new
       @settings = Settings.new(@profile)
+      initialize_externals
     end
 
     def video(file)
@@ -18,10 +19,17 @@ module Presentation
     end
 
     def browser(url)
+      @stage = Element::Browser.open(url)
     end
 
     def join
       @stage.join
+    end
+
+    private
+
+    def initialize_externals
+      External.modules.each { |mod| mod.configure(@profile, @settings) }
     end
 
   end

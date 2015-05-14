@@ -5,6 +5,8 @@ module Presentation
     # Wrapper for MPlayer functionality
     class MPlayer
 
+      include Configuration
+
       attr_reader :player, :state
 
       # @param [Hash] options
@@ -130,7 +132,6 @@ module Presentation
           if @player.nil? && @thread.nil?
             @thread = ::Presentation::Thread.new do
               @player = ::MPlayer::Slave.new(file, :options => @flags)
-              p file
               wrapper.send(:handle_start)
             end
           end
@@ -140,6 +141,8 @@ module Presentation
       end
 
     end
+
+    add(MPlayer)
 
   end
 end

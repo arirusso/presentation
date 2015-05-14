@@ -3,6 +3,7 @@
 # Libs
 require "cocoa"
 require "mplayer-ruby"
+require "open4"
 
 # Modules
 require "presentation/element"

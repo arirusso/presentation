@@ -16,8 +16,8 @@ module Presentation
         screen = screens.objectAtIndex(i)
         frame = screen.frame
         {
-          :height => frame[:size][:height],
-          :width => frame[:size][:width]
+          :height => frame[:size][:height].to_i,
+          :width => frame[:size][:width].to_i
         }
       end
     end
