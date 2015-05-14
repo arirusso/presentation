@@ -4,11 +4,11 @@ module Presentation
 
     class Text
 
-      TEMPLATE_PATH = "../text"
-
       include Configurable
 
       attr_reader :text, :created_at
+
+      TEMPLATE_PATH = "../text"
 
       def initialize(text)
         @text = text
@@ -24,7 +24,7 @@ module Presentation
       end
 
       def write_temp_file
-        File.open(yourfile, 'w') { |file| file.write("your text") }
+        File.open(temp_path, "w") { |file| file.write(render_html) }
       end
 
       def render_html
@@ -34,8 +34,8 @@ module Presentation
       end
 
       def display
-        write(@text)
-        Browser.browser.open(@url)
+        write_temp_file
+        Browser.browser.open(temp_path)
       end
 
       class << self
