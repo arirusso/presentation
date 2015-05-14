@@ -27,6 +27,10 @@ module Presentation
         @process = ::Presentation::Process.new(invoke)
       end
 
+      def open?
+        !@process.nil?
+      end
+
       private
 
       def start_position
