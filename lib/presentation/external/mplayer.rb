@@ -5,7 +5,7 @@ module Presentation
     # Wrapper for MPlayer functionality
     class MPlayer
 
-      include Configuration
+      include Configurable
 
       attr_reader :player, :state
 
@@ -142,7 +142,7 @@ module Presentation
 
     end
 
-    add(MPlayer)
+    ::Presentation::Configurable.add(MPlayer)
 
   end
 end

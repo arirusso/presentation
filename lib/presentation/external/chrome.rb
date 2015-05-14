@@ -4,7 +4,7 @@ module Presentation
 
     class Chrome
 
-      include Configuration
+      include Configurable
 
       attr_reader :process
       attr_writer :data_dir, :path
@@ -49,7 +49,7 @@ module Presentation
 
     end
 
-    add(Chrome)
+    ::Presentation::Configurable.add(Chrome)
 
   end
 

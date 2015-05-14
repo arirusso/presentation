@@ -4,7 +4,7 @@ module Presentation
 
     def initialize
       @environment = Environment.new
-      initialize_externals
+      configure
     end
 
     def video(file)
@@ -27,8 +27,8 @@ module Presentation
 
     private
 
-    def initialize_externals
-      External.modules.each { |mod| mod.configure(@environment) }
+    def configure
+      Configurable.modules.each { |mod| mod.configure(@environment) }
     end
 
   end

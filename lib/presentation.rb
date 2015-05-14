@@ -2,10 +2,12 @@
 
 # Libs
 require "cocoa"
+require "digest"
 require "mplayer-ruby"
 require "open4"
 
 # Modules
+require "presentation/configurable"
 require "presentation/element"
 require "presentation/external"
 require "presentation/thread"
