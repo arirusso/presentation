@@ -28,6 +28,10 @@ module Presentation
       stage(Element::Browser.open(url))
     end
 
+    def image(url)
+      stage(Element::Image.display(url))
+    end
+
     def join
       stage.join
     end
