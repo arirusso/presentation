@@ -21,15 +21,19 @@ module Presentation
     end
 
     def path
-      "#{settings.temp_dir}/#{filename}"
+      paths.join(" ")
+    end
+
+    def paths
+      filenames.map { |filename| "#{settings.temp_dir}/#{filename}" }
     end
 
     def timestamp
       @timestamp ||= Time.now.to_i
     end
 
-    def filename
-      "#{id}_#{@element.id}_#{timestamp}.png"
+    def filenames
+      (0..self.class.environment.profile.displays.count-1).to_a.map { |i| "#{id}_#{@element.id}_#{timestamp}_#{i}.png" }
     end
 
     private
