@@ -4,7 +4,6 @@ module Presentation
 
     def initialize
       @environment = Environment.new
-      configure
     end
 
     def video(file)
@@ -23,12 +22,6 @@ module Presentation
 
     def join
       @stage.join
-    end
-
-    private
-
-    def configure
-      Configurable.modules.each { |mod| mod.configure(@environment) }
     end
 
   end

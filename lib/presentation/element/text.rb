@@ -4,6 +4,8 @@ module Presentation
 
     class Text
 
+      TEMPLATE_PATH = "../text"
+
       include Configurable
 
       attr_reader :text, :created_at
@@ -23,6 +25,12 @@ module Presentation
 
       def write_temp_file
         File.open(yourfile, 'w') { |file| file.write("your text") }
+      end
+
+      def render_html
+        template_path = File.expand_path("#{TEMPLATE_PATH}/template.html.erb", __FILE__)
+        template = File.new(template_path).read
+        ERB.new(template).result(instance_eval { binding })
       end
 
       def display

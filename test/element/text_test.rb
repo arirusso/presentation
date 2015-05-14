@@ -4,6 +4,11 @@ class Presentation::Element::TextTest < Minitest::Test
 
   context "Context" do
 
+    setup do
+      Presentation::Configurable.add(Presentation::Element::Text)
+      @environment = Presentation::Environment.new
+    end
+
     context "#id" do
 
       setup do
@@ -13,6 +18,20 @@ class Presentation::Element::TextTest < Minitest::Test
       should "have correct id" do
         @id = Digest::SHA256.hexdigest(@text.text + @text.created_at.to_s)
         assert_equal @id, @text.id
+      end
+
+    end
+
+    context "#render_html" do
+
+      setup do
+        @text = Presentation::Element::Text.new("hello")
+        @html = @text.render_html
+      end
+
+      should "generate html" do
+        p @html
+        refute_nil @html
       end
 
     end

@@ -3,6 +3,7 @@
 # Libs
 require "cocoa"
 require "digest"
+require "erb"
 require "mplayer-ruby"
 require "open4"
 

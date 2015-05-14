@@ -14,6 +14,10 @@ module Presentation
       base.send(:extend, ClassMethods)
     end
 
+    def configured?
+      !environment.nil?
+    end
+
     def environment
       self.class.environment
     end
