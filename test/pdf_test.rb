@@ -6,6 +6,7 @@ class Presentation::PDFTest < Minitest::Test
 
     setup do
       Presentation::Configurable.add(Presentation::Screenshot)
+      Presentation::Configurable.add(Presentation::PDF)
       @environment = Presentation::Environment.new
       @elements = []
       @elements << Presentation::Element::Text.new("hi")
