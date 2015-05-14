@@ -9,6 +9,7 @@ module Presentation
       end
 
       def self.uuid
+        @last_id ||= 0
         @last_id += 1
       end
 

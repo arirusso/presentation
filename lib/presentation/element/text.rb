@@ -14,6 +14,11 @@ module Presentation
       def initialize(text)
         @text = text
         @created_at = Time.now
+        @has_been_launched = false
+      end
+
+      def launched?
+        @has_been_launched
       end
 
       def signature
@@ -37,6 +42,7 @@ module Presentation
       def display
         write_temp_file
         Browser.browser.open(temp_path)
+        @has_been_launched = true
       end
 
       class << self

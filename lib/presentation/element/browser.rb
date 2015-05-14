@@ -5,13 +5,19 @@ module Presentation
     class Browser
 
       include HasID
-      
+
       def initialize(url)
         @url = url
+        @has_been_launched = false
+      end
+
+      def launched?
+        @has_been_launched
       end
 
       def open
         Browser.browser.open(@url)
+        @has_been_launched = true
       end
 
       class << self

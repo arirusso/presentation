@@ -8,10 +8,16 @@ module Presentation
 
       def initialize(file)
         @file = file
+        @has_been_launched = false
+      end
+
+      def launched?
+        @has_been_launched
       end
 
       def play
         Video.player.play(@file)
+        @has_been_launched = true
       end
 
       def join
