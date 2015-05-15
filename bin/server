@@ -19,4 +19,10 @@ run Proc.new { |env|
 }
 end
 
-Rack::Server.start :app => builder.to_app
+server_options = {
+  :app => builder.to_app,
+  :Host => "localhost",
+  :Port => 9393
+}
+
+Rack::Server.start(server_options)
