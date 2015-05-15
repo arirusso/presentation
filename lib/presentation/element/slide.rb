@@ -26,18 +26,18 @@ module Presentation
         history = options[:history]
         last = history.last unless history.nil?
         was_other_element = !last.nil? && !last.kind_of?(Slide)
-        if !Slide.browser(@environment).open?
-          open_browser
-        elsif was_other_element
-          history.each { |element| element.unfocus if element.respond_to?(:unfocus) }
+        if was_other_element
+          history.each { |element| element.cleanup if element.respond_to?(:cleanup) }
           sleep(1)
+        end
+        if was_other_element || !Slide.browser(@environment).open?
           open_browser
         end
         Slide.browser(@environment).send_content(content_to_js)
         @has_been_launched = true
       end
 
-      def unfocus
+      def cleanup
         Slide.browser(@environment).send_content("window.close();")
       end
 

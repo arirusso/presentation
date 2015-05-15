@@ -24,10 +24,16 @@ module Presentation
         history = options[:history]
         last = history.last unless history.nil?
         was_other_element = !last.nil? && !last.kind_of?(Media)
-        player_options = {
-          :refresh => was_other_element
-        }
-        Media.player(@environment, player_options).play(@file)
+        if was_other_element
+          history.each { |element| element.cleanup if element.respond_to?(:unfocus) }
+        end
+        begin
+          player = Media.player(@environment, :refresh => was_other_element)
+          player.play(@file)
+        rescue Exception => exception
+          cleanup
+          retry
+        end
         @has_been_launched = true
       end
 
@@ -35,12 +41,19 @@ module Presentation
         Media.player(@environment).join
       end
 
+      def cleanup
+        Media.cleanup(@environment)
+      end
+
+      def self.cleanup(environment)
+        @player[environment].quit unless @player[environment].nil?
+        @player[environment] = nil
+      end
 
       def self.player(environment, options = {})
         @player ||= {}
         if !@player[environment].nil? && !!options[:refresh]
-          @player[environment].quit
-          @player[environment] = nil
+          cleanup(environment)
           sleep(1)
         end
         if @player[environment].nil?
