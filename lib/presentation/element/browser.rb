@@ -17,7 +17,7 @@ module Presentation
       end
 
       def open
-        Browser.browser.open(@url)
+        self.class.browser(@environment).open(@url)
         @has_been_launched = true
       end
 
@@ -29,8 +29,9 @@ module Presentation
           browser
         end
 
-        def browser
-          @browser ||= External::Chrome.new
+        def browser(environment)
+          @browser ||= {}
+          @browser[environment] ||= External::Chrome.new(environment)
         end
 
       end

@@ -11,7 +11,8 @@ module Presentation
 
       # @param [Hash] options
       # @option options [String] :flags MPlayer command-line flags to use on startup
-      def initialize(options = {})
+      def initialize(environment, options = {})
+        @environment = environment
         @invoker = Invoker.new(options)
         @state = {
           :pause => false,

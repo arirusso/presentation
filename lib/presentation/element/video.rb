@@ -18,12 +18,12 @@ module Presentation
       end
 
       def play
-        Video.player.play(@file)
+        self.class.player(@environment).play(@file)
         @has_been_launched = true
       end
 
       def join
-        Video.player.join
+        self.class.player(@environment).join
       end
 
       class << self
@@ -34,12 +34,14 @@ module Presentation
           video
         end
 
-        def player
-          if @player.nil?
+        def player(environment)
+          @player ||= {}
+          if @player[environment].nil?
             display_id = environment.settings.display_index
-            @player ||= External::MPlayer.new(:flags => "-fs -vo corevideo:device_id=#{display_id} -framedrop -zoom -osdlevel 0")
+            mplayer = External::MPlayer.new(environment, :flags => "-fs -vo corevideo:device_id=#{display_id} -framedrop -zoom -osdlevel 0")
+            @player[environment] ||= mplayer
           end
-          @player
+          @player[environment]
         end
 
       end

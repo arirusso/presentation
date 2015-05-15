@@ -14,6 +14,10 @@ module Presentation
         :path => "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome"
       }.freeze
 
+      def initialize(environment)
+        @environment = environment
+      end
+
       def data_dir
         @data_dir || DEFAULT[:data_dir]
       end
