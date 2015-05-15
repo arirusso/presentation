@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require "rack"
+require "rack/static"
+
+builder = Rack::Builder.new do
+
+use Rack::Static, :urls => ["/lib"], :root => "public"
+
+run Proc.new { |env|
+  [
+    200,
+    {
+      'Content-Type'  => 'text/html',
+      'Cache-Control' => 'public, max-age=1'
+    },
+    File.open("public/index.html", File::RDONLY)
+  ]
+}
+end
+
+Rack::Server.start :app => builder.to_app
