@@ -43,16 +43,16 @@ module Presentation
 
     def image(url)
       stage do
-        Element::Image.display(@environment, url)
+        Element::Image.display(@environment, url, :history => @elements)
       end
     end
 
     def join
-      stage.join
+      @stage.join
     end
 
     def create_pdf
-      if !@screenshots.empty? && !@stage.nil? && @screenshots.last.element != @stage
+      if !@stage.nil? && @screenshots.last.element != @stage
         @screenshots << Screenshot.capture(@environment, @stage)
         sleep(1)
       end
@@ -64,9 +64,10 @@ module Presentation
 
     def stage(&block)
       @screenshots << Screenshot.capture(@environment, @stage) unless @stage.nil?
+      sleep(1)
       element = yield
-      @stage = element
       @elements << element
+      @stage = element
     end
 
   end
