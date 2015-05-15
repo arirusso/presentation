@@ -59,9 +59,6 @@ module Presentation
       end
 
     end
-
-    ::Presentation::Configurable.add(Chrome)
-
   end
 
 end

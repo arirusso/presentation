@@ -11,7 +11,8 @@ module Presentation
 
       TEMPLATE_PATH = "../text"
 
-      def initialize(text)
+      def initialize(environment, text)
+        @environment = environment
         @text = text
         @created_at = Time.now
         @has_been_launched = false
@@ -57,8 +58,8 @@ module Presentation
 
       class << self
 
-        def display(text, options = {})
-          text_obj = new(text)
+        def display(environment, ext, options = {})
+          text_obj = new(environment, text)
           text_obj.display(options)
           text_obj
         end
@@ -70,8 +71,6 @@ module Presentation
       end
 
     end
-
-    ::Presentation::Configurable.add(Text)
 
   end
 

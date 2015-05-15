@@ -6,7 +6,8 @@ module Presentation
 
     attr_reader :element
 
-    def initialize(element)
+    def initialize(environment, element)
+      @environment = environment
       @element = element
     end
 
@@ -33,7 +34,7 @@ module Presentation
     end
 
     def filenames
-      (0..self.class.environment.profile.displays.count-1).to_a.map { |i| "#{id}_#{@element.id}_#{timestamp}_#{i}.png" }
+      (0..@environment.profile.displays.count-1).to_a.map { |i| "#{id}_#{@element.id}_#{timestamp}_#{i}.png" }
     end
 
     private
@@ -44,8 +45,8 @@ module Presentation
 
     class << self
 
-      def capture(element)
-        screenshot = new(element)
+      def capture(environment, element)
+        screenshot = new(environment, element)
         screenshot.capture
         screenshot
       end
@@ -58,7 +59,5 @@ module Presentation
     end
 
   end
-
-  ::Presentation::Configurable.add(Screenshot)
 
 end

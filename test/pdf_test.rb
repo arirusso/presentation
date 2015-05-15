@@ -5,17 +5,15 @@ class Presentation::PDFTest < Minitest::Test
   context "PDF" do
 
     setup do
-      Presentation::Configurable.add(Presentation::Screenshot)
-      Presentation::Configurable.add(Presentation::PDF)
       @environment = Presentation::Environment.new
       @elements = []
-      @elements << Presentation::Element::Text.new("hi")
-      @elements << Presentation::Element::Text.new("hello again")
-      @elements << Presentation::Element::Text.new("bye")
-      @screenshots = @elements.map { |element| Presentation::Screenshot.new(element) }
+      @elements << Presentation::Element::Text.new(@environment, "hi")
+      @elements << Presentation::Element::Text.new(@environment, "hello again")
+      @elements << Presentation::Element::Text.new(@environment, "bye")
+      @screenshots = @elements.map { |element| Presentation::Screenshot.new(@environment, element) }
       @screenshots.each(&:capture)
       sleep(1)
-      @pdf = Presentation::PDF.new(@screenshots, :title => "test!")
+      @pdf = Presentation::PDF.new(@environment, @screenshots, :title => "test!")
     end
 
     context "#write" do

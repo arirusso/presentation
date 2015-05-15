@@ -6,7 +6,8 @@ module Presentation
 
       include HasID
 
-      def initialize(url)
+      def initialize(environment, url)
+        @environment = environment
         @url = url
         @has_been_launched = false
       end
@@ -22,8 +23,8 @@ module Presentation
 
       class << self
 
-        def open(url)
-          browser = new(url)
+        def open(environment, url)
+          browser = new(environment, url)
           browser.open
           browser
         end

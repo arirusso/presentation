@@ -7,7 +7,8 @@ module Presentation
       include Configurable
       include HasID
 
-      def initialize(file)
+      def initialize(environment, file)
+        @environment = environment
         @file = file
         @has_been_launched = false
       end
@@ -27,8 +28,8 @@ module Presentation
 
       class << self
 
-        def play(file)
-          video = new(file)
+        def play(environment, file)
+          video = new(environment, file)
           video.play
           video
         end
@@ -44,8 +45,6 @@ module Presentation
       end
 
     end
-
-    ::Presentation::Configurable.add(Video)
 
   end
 

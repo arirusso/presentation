@@ -20,7 +20,7 @@ module Presentation
     def text(content)
       stage do
         last_element = @stage
-        Element::Text.display(content, :history => @elements)
+        Element::Text.display(@environment, content, :history => @elements)
       end
     end
 
@@ -32,13 +32,13 @@ module Presentation
 
     def browser(url)
       stage do
-        Element::Browser.open(url)
+        Element::Browser.open(@environment, url)
       end
     end
 
     def image(url)
       stage do
-        Element::Image.display(url)
+        Element::Image.display(@environment, url)
       end
     end
 
@@ -48,17 +48,17 @@ module Presentation
 
     def create_pdf
       if !@screenshots.empty? && !@stage.nil? && @screenshots.last.element != @stage
-        @screenshots << Screenshot.capture(@stage)
+        @screenshots << Screenshot.capture(@environment, @stage)
         sleep(1)
       end
-      @pdf = PDF.write(@screenshots, :title => @title)
+      @pdf = PDF.write(@environment, @screenshots, :title => @title)
       @pdf
     end
 
     private
 
     def stage(&block)
-      @screenshots << Screenshot.capture(@stage) unless @stage.nil?
+      @screenshots << Screenshot.capture(@environment, @stage) unless @stage.nil?
       element = yield
       @stage = element
       @elements << element

@@ -4,13 +4,14 @@ module Presentation
 
     include Configurable
 
-    def self.write(screenshots, options = {})
-      pdf = new(screenshots, options)
+    def self.write(environment, screenshots, options = {})
+      pdf = new(environment, screenshots, options)
       pdf.write
       pdf
     end
 
-    def initialize(screenshots, options = {})
+    def initialize(environment, screenshots, options = {})
+      @environment = environment
       @title = options[:title]
       @screenshots = screenshots
     end
@@ -42,7 +43,5 @@ module Presentation
     end
 
   end
-
-  Presentation::Configurable.add(PDF)
 
 end

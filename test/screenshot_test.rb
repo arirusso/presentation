@@ -5,8 +5,9 @@ class Presentation::ScreenshotTest < Minitest::Test
   context "Screenshot" do
 
     setup do
-      @text = Presentation::Element::Text.new("hi")
-      @screenshot = Presentation::Screenshot.new(@text)
+      @environment = Presentation::Environment.new
+      @text = Presentation::Element::Text.new(@environment, "hi")
+      @screenshot = Presentation::Screenshot.new(@environment, @text)
     end
 
     context "#capture" do

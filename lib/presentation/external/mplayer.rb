@@ -142,7 +142,5 @@ module Presentation
 
     end
 
-    ::Presentation::Configurable.add(MPlayer)
-
   end
 end
