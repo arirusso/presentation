@@ -2,9 +2,12 @@ module Presentation
 
   module Element
 
-    class Browser
+    module Browser
 
-      include HasID
+      def self.included(base)
+        base.send(:include, HasID)
+        base.send(:extend, ClassMethods)
+      end
 
       def initialize(environment, url)
         @environment = environment
@@ -17,21 +20,21 @@ module Presentation
       end
 
       def open
-        self.class.browser(@environment).open(@url)
+        Browser.browser(@environment).open(@url)
         @has_been_launched = true
       end
 
-      class << self
+      def self.browser(environment)
+        @browser ||= {}
+        @browser[environment] ||= External::Chrome.new(environment)
+      end
+
+      module ClassMethods
 
         def open(environment, url)
           browser = new(environment, url)
           browser.open
           browser
-        end
-
-        def browser(environment)
-          @browser ||= {}
-          @browser[environment] ||= External::Chrome.new(environment)
         end
 
       end

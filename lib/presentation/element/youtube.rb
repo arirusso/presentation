@@ -2,10 +2,12 @@ module Presentation
 
   module Element
 
-    class Youtube < Browser
+    class Youtube
+
+      include Browser
 
       def initialize(environment, url, options = {})
-        super
+        super(environment, url)
         @start = options[:start]
         populate_url
       end

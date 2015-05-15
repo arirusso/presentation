@@ -18,9 +18,10 @@ module Presentation
       @context.text(content)
     end
 
-    def b(url)
-      @context.browser(url)
+    def p(url)
+      @context.page(url)
     end
+    alias_method :b, :p
 
     def y(id)
       @context.youtube(id)

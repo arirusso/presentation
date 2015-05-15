@@ -27,12 +27,15 @@ module Presentation
     def audio(file)
     end
 
-    def youtube(url)
+    def page(url)
+      stage do
+        Element::Page.open(@environment, url)
+      end
     end
 
-    def browser(url)
+    def youtube(url)
       stage do
-        Element::Browser.open(@environment, url)
+        Element::Youtube.open(@environment, url)
       end
     end
 
