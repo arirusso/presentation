@@ -2,12 +2,16 @@ module Presentation
 
   module Element
 
-    class Image < Browser
+    class Image
 
-      alias_method :display, :open
+      include Slide
 
-      class << self
-        alias_method :display, :open
+      alias_method :url, :content
+
+      private
+
+      def content_to_js
+        "$('.content').hide(); $('#image').html('<img src=\\'#{@content}\\' />'); $('#image').fadeIn(800);"
       end
 
     end

@@ -1,5 +1,6 @@
 # Modules
 require "presentation/element/has_id"
+require "presentation/element/slide"
 
 # Classes
 require "presentation/element/audio"

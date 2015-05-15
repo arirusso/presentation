@@ -11,6 +11,7 @@ require "web-repl"
 require "presentation/configurable"
 require "presentation/element"
 require "presentation/external"
+require "presentation/live"
 require "presentation/process"
 require "presentation/thread"
 

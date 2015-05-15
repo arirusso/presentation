@@ -8,18 +8,21 @@
   <title>Presentation</title>
   <meta charset="utf-8">
   <style type="text/css" media="all">
-  .text {
+  .content {
     height: 100%;
     width: 100%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
-    font-size: 3.5em;
+    font-size: 4em;
     font-style: normal;
     font-variant: normal;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -200px;
+    text-align: center;
+  }
+  #text {
+    top: 30%;
+  }
+  #image {
+    vertical-align:middle;
   }
   </style>
   <script src="lib/jquery-2.1.4.min.js"></script>
@@ -27,6 +30,8 @@
   <script type="text/javascript">
   var repl;
   window.onload = function() {
+    $("#text").hide();
+    $("#image").hide();
     var repl = new ReplConnection("localhost", 9997, { debug: true, reconnect: true});
     repl.start();
   }
@@ -34,6 +39,9 @@
 </head>
 
 <body>
-  <div class="text"></div>
+  <div id="container">
+    <div id="text" class="content"></div>
+    <div id="image" class="content"></div>
+  </div>
 </body>
 </html>
