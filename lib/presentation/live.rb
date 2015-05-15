@@ -31,6 +31,10 @@ module Presentation
       @context.youtube(id)
     end
 
+    def pdf!
+      @context.create_pdf
+    end
+
   end
 
 end
