@@ -28,6 +28,10 @@ module Presentation
       end
 
       def open(url)
+        unless @repl.nil?
+          @repl.close
+          @repl = nil
+        end
         invoke = invocation(url)
         @process = ::Presentation::Process.new(invoke)
       end

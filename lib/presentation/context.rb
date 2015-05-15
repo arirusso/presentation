@@ -2,12 +2,13 @@ module Presentation
 
   class Context
 
-    attr_accessor :environment, :pdf, :screenshots, :title
+    attr_accessor :elements, :environment, :pdf, :screenshots, :title
 
     def initialize(options = {})
       @environment = Environment.new
       @title = options[:title]
       @screenshots = []
+      @elements = []
     end
 
     def video(file)
@@ -19,7 +20,7 @@ module Presentation
     def text(content)
       stage do
         last_element = @stage
-        Element::Text.display(content, :last => last_element)
+        Element::Text.display(content, :history => @elements)
       end
     end
 
@@ -58,7 +59,9 @@ module Presentation
 
     def stage(&block)
       @screenshots << Screenshot.capture(@stage) unless @stage.nil?
-      @stage = yield
+      element = yield
+      @stage = element
+      @elements << element
     end
 
   end

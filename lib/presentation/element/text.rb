@@ -26,19 +26,33 @@ module Presentation
       end
 
       def content_to_js
-        "$('.text').hide(); $('.text').text('#{@text}'); $('.text').fadeIn(1000);"
+        "$('.text').hide(); $('.text').text('#{@text}'); $('.text').fadeIn(800);"
       end
 
       def display(options = {})
-        last = options[:last]
-        is_first = !Browser.browser.open?
-        is_consecutive_texts = !last.nil? && last.kind_of?(Text)
-        if is_first || !is_consecutive_texts
-          Browser.browser.open(template_url)
-          sleep(2)
+        history = options[:history]
+        last = history.last unless history.nil?
+        was_other_element = !last.nil? && !last.kind_of?(Text)
+        if !Browser.browser.open?
+          open_browser
+        elsif was_other_element
+          history.each { |element| element.unfocus if element.respond_to?(:unfocus) }
+          sleep(1)
+          open_browser
         end
         Browser.browser.send_content(content_to_js)
         @has_been_launched = true
+      end
+
+      def unfocus
+        Browser.browser.send_content("window.close();")
+      end
+
+      private
+
+      def open_browser
+        Browser.browser.open(template_url)
+        sleep(2)
       end
 
       class << self
