@@ -50,6 +50,7 @@ module Presentation
         if @repl.nil?
           @repl = WebRepl::REPL.new(:host => "localhost", :port => 9997)
           @repl.start(:background => true)
+          loop until @repl.ready?
         end
       end
 

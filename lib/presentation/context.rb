@@ -13,7 +13,7 @@ module Presentation
 
     def video(file)
       stage do
-        Element::Video.play(file)
+        Element::Video.play(@environment, file, :history => @elements)
       end
     end
 

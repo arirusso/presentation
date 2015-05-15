@@ -91,7 +91,8 @@ module Presentation
       # Cause MPlayer to exit
       # @return [Boolean]
       def quit
-        @player.quit
+        @player.quit rescue nil
+        `kill #{@player.pid}` unless @player.nil?
         @threads.each(&:kill)
         @invoker.destroy
         true
