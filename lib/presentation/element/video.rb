@@ -4,6 +4,7 @@ module Presentation
 
     class Video
 
+      include Configurable
       include HasID
 
       def initialize(file)
@@ -33,12 +34,18 @@ module Presentation
         end
 
         def player
-          @player ||= External::MPlayer.new
+          if @player.nil?
+            display_id = environment.settings.display_index
+            @player ||= External::MPlayer.new(:flags => "-fs -vo corevideo:device_id=#{display_id} -framedrop -zoom -osdlevel 0")
+          end
+          @player
         end
 
       end
 
     end
+
+    ::Presentation::Configurable.add(Video)
 
   end
 
