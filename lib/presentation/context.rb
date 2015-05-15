@@ -11,11 +11,15 @@ module Presentation
     end
 
     def video(file)
-      stage(Element::Video.play(file))
+      stage do
+        Element::Video.play(file)
+      end
     end
 
     def text(content)
-      stage(Element::Text.display(content))
+      stage do
+        Element::Text.display(content)
+      end
     end
 
     def audio(file)
@@ -25,11 +29,15 @@ module Presentation
     end
 
     def browser(url)
-      stage(Element::Browser.open(url))
+      stage do
+        Element::Browser.open(url)
+      end
     end
 
     def image(url)
-      stage(Element::Image.display(url))
+      stage do
+        Element::Image.display(url)
+      end
     end
 
     def join
@@ -46,9 +54,9 @@ module Presentation
 
     private
 
-    def stage(element)
+    def stage(&block)
       @screenshots << Screenshot.capture(@stage) unless @stage.nil?
-      @stage = element
+      @stage = yield
     end
 
   end

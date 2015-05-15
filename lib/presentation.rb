@@ -3,10 +3,10 @@
 # Libs
 require "cocoa"
 require "digest"
-require "erb"
 require "mplayer-ruby"
 require "open4"
 require "prawn"
+require "web-repl"
 
 # Modules
 require "presentation/configurable"

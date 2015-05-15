@@ -22,6 +22,11 @@ module Presentation
         @path || DEFAULT[:path]
       end
 
+      def send_content(content)
+        ensure_repl
+        @repl.evaluate("$('.text').text('#{content}')")
+      end
+
       def open(url)
         invoke = invocation(url)
         @process = ::Presentation::Process.new(invoke)
@@ -32,6 +37,13 @@ module Presentation
       end
 
       private
+
+      def ensure_repl
+        if @repl.nil?
+          @repl = WebRepl::REPL.new(:host => "localhost", :port => 9997)
+          @repl.start(:background => true)
+        end
+      end
 
       def start_position
         width = settings.display[:width] * settings.display_index
