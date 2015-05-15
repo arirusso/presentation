@@ -2,7 +2,6 @@
 
 # Libs
 require "cocoa"
-require "digest"
 require "mplayer-ruby"
 require "open4"
 require "prawn"

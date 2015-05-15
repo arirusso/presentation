@@ -24,7 +24,7 @@ module Presentation
 
       def send_content(content)
         ensure_repl
-        @repl.evaluate("$('.text').text('#{content}')")
+        @repl.evaluate(content)
       end
 
       def open(url)

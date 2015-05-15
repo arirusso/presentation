@@ -21,16 +21,12 @@ module Presentation
         @has_been_launched
       end
 
-      def signature
-        @id ||= Digest::SHA256.hexdigest(@text + @created_at.to_s)
-      end
-
       def template_url
         "http://localhost:8080/index.html"
       end
 
-      def content_to_html
-        @text
+      def content_to_js
+        "$('.text').hide(); $('.text').text('#{@text}'); $('.text').fadeIn(1000);"
       end
 
       def display
@@ -38,7 +34,7 @@ module Presentation
           Browser.browser.open(template_url)
           sleep(2)
         end
-        Browser.browser.send_content(content_to_html)
+        Browser.browser.send_content(content_to_js)
         @has_been_launched = true
       end
 

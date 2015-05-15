@@ -50,6 +50,7 @@ module Presentation
         sleep(1)
       end
       @pdf = PDF.write(@screenshots, :title => @title)
+      @pdf
     end
 
     private
