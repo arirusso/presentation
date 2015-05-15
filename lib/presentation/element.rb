@@ -1,6 +1,7 @@
 # Modules
 require "presentation/element/browser"
 require "presentation/element/has_id"
+require "presentation/element/media"
 require "presentation/element/slide"
 
 # Classes

@@ -19,12 +19,14 @@ module Presentation
 
     def text(content)
       stage do
-        last_element = @stage
         Element::Text.display(@environment, content, :history => @elements)
       end
     end
 
     def audio(file)
+      stage do
+        Element::Audio.play(@environment, file, :history => @elements)
+      end
     end
 
     def page(url)

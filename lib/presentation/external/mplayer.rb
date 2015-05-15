@@ -119,7 +119,7 @@ module Presentation
         # @param [Hash] options
         # @option options [String] :flags MPlayer command-line flags to use on startup
         def initialize(options = {})
-          @flags = "-fixed-vo -idle"
+          @flags = "-fixed-vo -idle -noconsolecontrols"
           @flags += " #{options[:flags]}" unless options[:flags].nil?
           @player.nil?
           @thread = nil

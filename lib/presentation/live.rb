@@ -6,6 +6,10 @@ module Presentation
       @context = ::Presentation.new(options)
     end
 
+    def a(file)
+      @context.audio(file)
+    end
+
     def v(file)
       @context.video(file)
     end
