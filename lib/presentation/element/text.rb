@@ -29,8 +29,11 @@ module Presentation
         "$('.text').hide(); $('.text').text('#{@text}'); $('.text').fadeIn(1000);"
       end
 
-      def display
-        unless Browser.browser.open?
+      def display(options = {})
+        last = options[:last]
+        is_first = !Browser.browser.open?
+        is_consecutive_texts = !last.nil? && last.kind_of?(Text)
+        if is_first || !is_consecutive_texts
           Browser.browser.open(template_url)
           sleep(2)
         end
@@ -40,9 +43,9 @@ module Presentation
 
       class << self
 
-        def display(text)
+        def display(text, options = {})
           text_obj = new(text)
-          text_obj.display
+          text_obj.display(options)
           text_obj
         end
 

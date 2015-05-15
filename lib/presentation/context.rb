@@ -18,7 +18,8 @@ module Presentation
 
     def text(content)
       stage do
-        Element::Text.display(content)
+        last_element = @stage
+        Element::Text.display(content, :last => last_element)
       end
     end
 
