@@ -2,7 +2,7 @@ module Presentation
 
   module Live
 
-    def new_presentation(options = {})
+    def start(options = {})
       @context = ::Presentation.new(options)
     end
 
